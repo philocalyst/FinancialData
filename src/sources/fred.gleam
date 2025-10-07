@@ -15,7 +15,7 @@ pub fn date_to_fred_url_string(
   case list.first(string.split(rfc3339_string, on: "T")) {
     Ok(date_part) -> date_part
     // If extraction fails, something is fundamentally wrong with the timestamp format.
-    Error(_) -> panic("Failed to extract date part from RFC3339 string. ")
+    Error(_) -> panic as "Failed to extract date part from RFC3339 string. "
   }
 }
 
