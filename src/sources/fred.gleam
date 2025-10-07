@@ -1,3 +1,4 @@
+import conversion
 import gleam/list
 import gleam/string
 import gleam/time/calendar
@@ -22,7 +23,7 @@ pub fn date_to_fred_url_string(
 pub fn retrieve_fred(
   start: calendar.Date,
   end: calendar.Date,
-  id: String,
+  ops: conversion.Conversion,
 ) -> String {
   let utc_offset = calendar.utc_offset
 
@@ -33,7 +34,7 @@ pub fn retrieve_fred(
 
   host
   <> "?id="
-  <> id
+  <> ops |> conversion.to_fred_string
   <> "&cosd="
   <> start_date_str
   <> "&coed="
