@@ -5,8 +5,8 @@ pub type Conversion {
 }
 
 pub fn to_fred_string(input: Conversion) -> String {
-  let first = input.from |> dime.display_name
-  let second = input.from |> dime.display_name
+  let first = input.from |> dime.alpha_code
+  let second = input.from |> dime.alpha_code
 
   "DEX" <> first <> second
 }
