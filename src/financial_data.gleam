@@ -1,3 +1,6 @@
+import gleam/http/request
+import gleam/http/response
+import gleam/httpc
 import gleam/io
 import gleam/list
 import gleam/result
@@ -12,15 +15,33 @@ type Links {
 }
 
 pub fn main() -> Nil {
-  let data =
+  let link =
     retrieve_fred(
-      calendar.Date(2025, calendar.October, 7),
-      calendar.Date(2025, calendar.October, 7),
+      calendar.Date(2020, calendar.October, 7),
+      calendar.Date(2020, calendar.October, 7),
       "DEXUSUK",
       Linear,
       Average,
     )
-  io.println(data)
+
+  let assert Ok(base_request) = request.to(link)
+
+  let req =
+    request.prepend_header(
+      base_request,
+      "accept",
+      "application/vnd.hmrc.1.0+json",
+    )
+
+  // Send the HTTP request to the server
+  let assert Ok(resp) = httpc.send(req)
+
+  // Ensure we get a response record back
+  assert resp.status == 200
+
+  let csv_data = resp.body
+
+  io.println(csv_data)
 }
 
 pub type Form {
