@@ -4,14 +4,6 @@ import gleam/time/calendar
 import gleam/time/duration
 import gleam/time/timestamp
 
-pub type Form {
-  Linear
-}
-
-pub type Aggregation {
-  Average
-}
-
 pub fn date_to_fred_url_string(
   date: calendar.Date,
   utc_offset: duration.Duration,
@@ -31,8 +23,6 @@ pub fn retrieve_fred(
   start: calendar.Date,
   end: calendar.Date,
   id: String,
-  form: Form,
-  aggregation: Aggregation,
 ) -> String {
   let utc_offset = calendar.utc_offset
 

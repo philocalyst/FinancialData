@@ -2,7 +2,7 @@ import gleam/http/request
 import gleam/httpc
 import gleam/time/calendar
 import gsv
-import sources/fred.{Average, Linear, retrieve_fred}
+import sources/fred.{retrieve_fred}
 
 type Links {
   FRED
@@ -14,8 +14,6 @@ pub fn main() -> Nil {
       calendar.Date(2020, calendar.October, 7),
       calendar.Date(2025, calendar.October, 7),
       "DEXUSUK",
-      Linear,
-      Average,
     )
 
   let assert Ok(base_request) = request.to(link)
