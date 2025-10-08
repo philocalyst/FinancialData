@@ -2,7 +2,9 @@ import common
 import conversion
 import gleam/float
 import gleam/list
+import gleam/option
 import gleam/order
+import gleam/result
 import gleam/string
 import gleam/time/calendar
 import gleam/time/duration
@@ -59,21 +61,29 @@ fn records_to_representation(
     // And the data within each row
     let assert [date, rate] = row
 
-    let rate = float.parse(rate)
-    let timestamp =
+    // TODO: Better error handling here
+    let rate = case float.parse(rate) {
+      Ok(r) -> r
+      Error(e) -> 0.0
+    }
+
+    let assert Ok(timestamp) =
       date
       |> common.parse_date
-      |> timestamp.from_calendar(
-        calendar.TimeOfDay(0, 0, 0, 0),
-        duration.seconds(0),
-      )
+      |> result.map(fn(d) {
+        timestamp.from_calendar(
+          d,
+          calendar.TimeOfDay(0, 0, 0, 0),
+          duration.seconds(0),
+        )
+      })
 
     record.Record(
       at: timestamp,
-      from: todo,
-      to: todo,
-      rate: todo,
-      is_final: todo,
+      from: source.conversion.from,
+      to: source.conversion.to,
+      rate: rate,
+      is_final: option.None,
     )
   })
 }
