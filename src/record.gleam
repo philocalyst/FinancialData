@@ -1,4 +1,5 @@
 import dime
+import gleam/option.{type Option}
 import gleam/time/timestamp
 
 /// Typing for each conversion record
@@ -8,6 +9,6 @@ pub type Record {
     from: dime.Currency,
     to: dime.Currency,
     rate: Float,
-    is_final: Bool,
+    is_final: Option(Bool),
   )
 }
