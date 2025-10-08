@@ -1,9 +1,14 @@
+import common
 import conversion
+import gleam/float
 import gleam/list
+import gleam/order
 import gleam/string
 import gleam/time/calendar
 import gleam/time/duration
 import gleam/time/timestamp
+import record
+import source
 
 pub fn date_to_fred_url_string(
   date: calendar.Date,
@@ -42,4 +47,33 @@ pub fn retrieve_fred(
   <> "&freq=Daily"
   <> "&transformation=lin"
   <> "&fam=avg"
+}
+
+fn records_to_representation(
+  records: List(List(String)),
+  source: source.Source,
+) -> List(record.Record) {
+  records
+  // Here we're accessing a row of the original CSV
+  |> list.map(fn(row) {
+    // And the data within each row
+    let assert [date, rate] = row
+
+    let rate = float.parse(rate)
+    let timestamp =
+      date
+      |> common.parse_date
+      |> timestamp.from_calendar(
+        calendar.TimeOfDay(0, 0, 0, 0),
+        duration.seconds(0),
+      )
+
+    record.Record(
+      at: timestamp,
+      from: todo,
+      to: todo,
+      rate: todo,
+      is_final: todo,
+    )
+  })
 }
