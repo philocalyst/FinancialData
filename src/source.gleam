@@ -1,3 +1,6 @@
+import conversion
+import gleam/uri
+
 pub type FinancialCalendar {
   FED
 }
@@ -13,7 +16,8 @@ pub type PriceType {
 pub type Source {
   Source(
     invertible: Bool,
-    source: Uri,
+    source: uri.Uri,
+    conversion: conversion.Conversion,
     license: String,
     calendar: FinancialCalendar,
     name: String,
