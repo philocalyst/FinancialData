@@ -3,7 +3,6 @@ import conversion
 import gleam/float
 import gleam/list
 import gleam/option
-import gleam/order
 import gleam/result
 import gleam/string
 import gleam/time/calendar
@@ -51,7 +50,7 @@ pub fn retrieve_fred(
   <> "&fam=avg"
 }
 
-fn records_to_representation(
+pub fn records_to_representation(
   records: List(List(String)),
   source: source.Source,
 ) -> List(record.Record) {
@@ -64,7 +63,7 @@ fn records_to_representation(
     // TODO: Better error handling here
     let rate = case float.parse(rate) {
       Ok(r) -> r
-      Error(e) -> 0.0
+      Error(_) -> 0.0
     }
 
     let assert Ok(timestamp) =

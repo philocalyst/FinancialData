@@ -35,7 +35,5 @@ pub fn main() -> Nil {
 
   let assert Ok(data) = gsv.to_lists(resp.body, ",")
 
-  echo data
-
   Nil
 }
