@@ -6,10 +6,6 @@ import gleam/time/calendar.{Date}
 import gsv
 import sources/fred.{retrieve_fred}
 
-type Links {
-  FRED
-}
-
 pub fn main() -> Nil {
   let link =
     retrieve_fred(
