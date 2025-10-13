@@ -41,6 +41,12 @@ pub fn to_currency(conversion: SupportedConversion) -> dime.Currency {
     EURToUSD -> dime.usd
     GBPToUSD -> dime.usd
   }
+pub fn available_conversions() -> List(conversion.Conversion) {
+  [
+    conversion.Conversion(dime.usd, dime.eur),
+    conversion.Conversion(dime.eur, dime.usd),
+    conversion.Conversion(dime.gbp, dime.usd),
+  ]
 }
 
 /// Performs a conversion, but only accepts the `SupportedConversion` type.
