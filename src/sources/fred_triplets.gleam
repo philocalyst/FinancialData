@@ -25,22 +25,6 @@ pub fn to_supported_conversion(
   }
 }
 
-/// A function to get the 'from' currency from a *validated* SupportedConversion.
-pub fn from_currency(conversion: SupportedConversion) -> dime.Currency {
-  case conversion {
-    USDToEUR -> dime.usd
-    EURToUSD -> dime.eur
-    GBPToUSD -> dime.gbp
-  }
-}
-
-/// A function to get the 'to' currency from a *validated* SupportedConversion.
-pub fn to_currency(conversion: SupportedConversion) -> dime.Currency {
-  case conversion {
-    USDToEUR -> dime.eur
-    EURToUSD -> dime.usd
-    GBPToUSD -> dime.usd
-  }
 pub fn available_conversions() -> List(conversion.Conversion) {
   [
     conversion.Conversion(dime.usd, dime.eur),
